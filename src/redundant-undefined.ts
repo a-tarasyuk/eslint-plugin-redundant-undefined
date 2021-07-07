@@ -129,8 +129,11 @@ export default createRule({
                 ? typeNode.types[typeNode.types.length - 1]
                 : typeNode;
 
+            const needParens =
+              lastTypeNode.type === AST_NODE_TYPES.TSFunctionType ||
+              lastTypeNode.type === AST_NODE_TYPES.TSConstructorType;
             const fixers = [];
-            if (lastTypeNode.type === AST_NODE_TYPES.TSFunctionType) {
+            if (needParens) {
               fixers.push(fixer.insertTextBefore(lastTypeNode, '('));
               fixers.push(fixer.insertTextAfter(lastTypeNode, ')'));
             }

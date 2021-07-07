@@ -280,6 +280,25 @@ interface I {
     },
     {
       code: `
+interface I {
+  p?: new () => {};
+}
+      `,
+      errors: [
+        {
+          messageId: 'propertyError',
+          line: 3,
+          column: 3,
+        },
+      ],
+      output: `
+interface I {
+  p?: (new () => {}) | undefined;
+}
+      `,
+    },
+    {
+      code: `
 class C {
   private p?: string;
 }
