@@ -299,6 +299,25 @@ interface I {
     },
     {
       code: `
+interface I<T> {
+  p?: T extends string ? string : number;
+}
+      `,
+      errors: [
+        {
+          messageId: 'propertyError',
+          line: 3,
+          column: 3,
+        },
+      ],
+      output: `
+interface I<T> {
+  p?: (T extends string ? string : number) | undefined;
+}
+      `,
+    },
+    {
+      code: `
 class C {
   private p?: string;
 }

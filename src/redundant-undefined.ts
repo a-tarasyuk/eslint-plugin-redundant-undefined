@@ -131,7 +131,8 @@ export default createRule({
 
             const needParens =
               lastTypeNode.type === AST_NODE_TYPES.TSFunctionType ||
-              lastTypeNode.type === AST_NODE_TYPES.TSConstructorType;
+              lastTypeNode.type === AST_NODE_TYPES.TSConstructorType ||
+              lastTypeNode.type === AST_NODE_TYPES.TSConditionalType;
             const fixers = [];
             if (needParens) {
               fixers.push(fixer.insertTextBefore(lastTypeNode, '('));
