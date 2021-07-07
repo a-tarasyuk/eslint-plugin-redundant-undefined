@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-redundant-undefined",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "ESlint rule for disallow redundant undefined",
   "keywords": [
     "eslint",
@@ -30,7 +30,7 @@
     "build": "tsc"
   },
   "devDependencies": {
-    "@types/eslint": "7.2.13",
+    "@types/eslint": "7.2.14",
     "@types/node": "16.0.0",
     "@typescript-eslint/eslint-plugin": "4.28.2",
     "@typescript-eslint/parser": "4.14.0",
