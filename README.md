@@ -2,7 +2,7 @@
 
 > Forbids optional parameters to include an explicit `undefined` in their type and requires to use `undefined` in optional properties.
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/a-tarasyuk/eslint-plugin-redundant-undefined/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/eslint-plugin-redundant-undefined.svg?style=flat-square)](https://www.npmjs.com/package/eslint-plugin-redundant-undefined) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/a-tarasyuk/eslint-plugin-redundant-undefined/main?style=flat-square) ![Coveralls github](https://img.shields.io/coveralls/github/a-tarasyuk/eslint-plugin-redundant-undefined?style=flat-square)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/a-tarasyuk/eslint-plugin-redundant-undefined/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/eslint-plugin-redundant-undefined.svg?style=flat-square)](https://www.npmjs.com/package/eslint-plugin-redundant-undefined) [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/a-tarasyuk/eslint-plugin-redundant-undefined/main?style=flat-square)](https://github.com/a-tarasyuk/eslint-plugin-redundant-undefined/actions) ![Coveralls github](https://img.shields.io/coveralls/github/a-tarasyuk/eslint-plugin-redundant-undefined?style=flat-square)
 
 ## Installation
 
