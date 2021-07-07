@@ -1,0 +1,12 @@
+coverage
+docs
+src
+tests
+.editorconfig
+.eslintrc
+.prettierignore
+.prettierrc.json
+.travis.yml
+jest.config.js
+tsconfig.eslint.json
+tsconfig.json

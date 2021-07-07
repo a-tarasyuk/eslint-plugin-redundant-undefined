@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
+    "suppressImplicitAnyIndexErrors":  true,
+    "allowSyntheticDefaultImports": false,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noImplicitAny": true,
+    "noResolve": false,
+    "skipLibCheck": true,
+    "declaration": false,
+    "strict": true,
+    "module": "commonjs",
+    "target": "es5",
+    "outDir": "dist",
+    "lib": ["es2015"]
+  },
+
+  "include": [
+    "src"
+  ],
+
+  "exclude": [
+    "dist"
+  ]
+}
