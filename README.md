@@ -37,7 +37,7 @@ Then configure the rules you want to use under the rules section.
 
 ### Options
 
-- `followExactOptionalPropertyTypes` - Requires explicitly specifying `undefined` as a type for a parameter which is already optional &mdash; This provides the correct semantics for people who have [`exactOptionalPropertyType: true`](https://www.typescriptlang.org/tsconfig/#exactOptionalPropertyTypes)
+- `followExactOptionalPropertyTypes` - Requires explicitly specifying `undefined` as a type for a parameter which is already optional., this provides the correct semantics for people who have [`exactOptionalPropertyType: true`](https://www.typescriptlang.org/tsconfig/#exactOptionalPropertyTypes)
 
 ### Examples
 
