@@ -33,8 +33,11 @@ Then configure the rules you want to use under the rules section.
 
 ## Rule Details
 
-- Avoid explicitly specifying `undefined` as a type for a parameter which is already optional
-- Require explicitly specifying `undefined` as a type for a parameter which is already optional &mdash; this provides the correct semantics for people who have `exactOptionalPropertyType: true`
+- Avoid explicitly specifying `undefined` as a type for a parameter/property which is already optional
+
+### Options
+
+- `followExactOptionalPropertyTypes` - Requires explicitly specifying `undefined` as a type for a parameter which is already optional &mdash; this provides the correct semantics for people who have `exactOptionalPropertyType: true`
 
 ### Examples
 
@@ -46,11 +49,11 @@ function f(s?: undefined | string): void {}
 function f(s?: number | undefined | string): void {}
 
 interface I {
-  a?: string;
+  a?: string | undefined;
 }
 
-interface I {
-  a?: string | number;
+class C {
+  a?: string | undedined;
 }
 ```
 
@@ -60,11 +63,51 @@ Examples of **correct** code:
 function f(s?: string): void {}
 
 interface I {
-  a?: string | undefined;
+  a?: string;
 }
 
 interface I {
   a?: any;
+}
+
+class C {
+  a?: string;
+}
+```
+
+Examples of **incorrect** code for the `{ "followExactOptionalPropertyTypes": true }`:
+
+```ts
+interface I {
+  p?: string;
+}
+
+class C {
+  private p?: number;
+}
+
+abstract class C {
+  abstract p?: string;
+}
+```
+
+Examples of **correct** code for the `{ "followExactOptionalPropertyTypes": true }`:
+
+```ts
+interface I {
+  p?: string | undefined;
+}
+
+interface I {
+  p?: any;
+}
+
+class C {
+  private p?: number | undefined;
+}
+
+abstract class C {
+  abstract p?: string | undefined;
 }
 ```
 

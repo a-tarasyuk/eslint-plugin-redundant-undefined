@@ -38,51 +38,18 @@ class C {
     {
       code: `
 interface I {
-    p?: string | undefined;
+  p?: string | undefined;
 }
       `,
-    },
-    {
-      code: `
-interface I {
-    p?: string | any;
-}
-      `,
-    },
-    {
-      code: `
-interface I {
-    p?: any;
-}
-      `,
+      options: [{ followExactOptionalPropertyTypes: true }],
     },
     {
       code: `
 class C {
-    private p?: any;
+  private p?: number | undefined;
 }
       `,
-    },
-    {
-      code: `
-class C {
-    private p?: string | undefined;
-}
-      `,
-    },
-    {
-      code: `
-class C {
-    private p?: undefined;
-}
-      `,
-    },
-    {
-      code: `
-abstract class C {
-  abstract p?: any;
-}
-      `,
+      options: [{ followExactOptionalPropertyTypes: true }],
     },
     {
       code: `
@@ -90,13 +57,7 @@ abstract class C {
   abstract p?: string | undefined;
 }
       `,
-    },
-    {
-      code: `
-abstract class C {
-  abstract p?: undefined;
-}
-      `,
+      options: [{ followExactOptionalPropertyTypes: true }],
     },
   ],
   invalid: [
@@ -107,7 +68,7 @@ function f(p?: undefined | string): void {
       `,
       errors: [
         {
-          messageId: 'parameterError',
+          messageId: 'parameterOptionalError',
           line: 2,
           column: 16,
         },
@@ -123,7 +84,7 @@ const f = (p?: string | undefined) => {}
       `,
       errors: [
         {
-          messageId: 'parameterError',
+          messageId: 'parameterOptionalError',
           line: 2,
           column: 25,
         },
@@ -140,7 +101,7 @@ class C {
       `,
       errors: [
         {
-          messageId: 'parameterError',
+          messageId: 'parameterOptionalError',
           line: 3,
           column: 35,
         },
@@ -159,7 +120,7 @@ class C {
       `,
       errors: [
         {
-          messageId: 'parameterError',
+          messageId: 'parameterOptionalError',
           line: 3,
           column: 18,
         },
@@ -177,7 +138,7 @@ function f(p?: number | undefined | string): void {
       `,
       errors: [
         {
-          messageId: 'parameterError',
+          messageId: 'parameterOptionalError',
           line: 2,
           column: 25,
         },
@@ -194,7 +155,7 @@ function f(p?: number | string | undefined): void {
       `,
       errors: [
         {
-          messageId: 'parameterError',
+          messageId: 'parameterOptionalError',
           line: 2,
           column: 34,
         },
@@ -211,7 +172,7 @@ function f(p?: undefined): void {
       `,
       errors: [
         {
-          messageId: 'parameterError',
+          messageId: 'parameterOptionalError',
           line: 2,
           column: 16,
         },
@@ -224,12 +185,70 @@ function f(p?): void {
     {
       code: `
 interface I {
-  p?: string;
+  p?: string | undefined;
 }
       `,
       errors: [
         {
-          messageId: 'propertyError',
+          messageId: 'propertyOptionalError',
+          line: 3,
+          column: 16,
+        },
+      ],
+      output: `
+interface I {
+  p?: string;
+}
+      `,
+    },
+    {
+      code: `
+class C {
+  private p?: string | undefined;
+}
+      `,
+      errors: [
+        {
+          messageId: 'propertyOptionalError',
+          line: 3,
+          column: 24,
+        },
+      ],
+      output: `
+class C {
+  private p?: string;
+}
+      `,
+    },
+    {
+      code: `
+abstract class C {
+  abstract p?: string | undefined;
+}
+      `,
+      errors: [
+        {
+          messageId: 'propertyOptionalError',
+          line: 3,
+          column: 25,
+        },
+      ],
+      output: `
+abstract class C {
+  abstract p?: string;
+}
+      `,
+    },
+    {
+      code: `
+interface I {
+  p?: string;
+}
+      `,
+      options: [{ followExactOptionalPropertyTypes: true }],
+      errors: [
+        {
+          messageId: 'exactOptionalPropertyTypesError',
           line: 3,
           column: 3,
         },
@@ -246,9 +265,10 @@ interface I {
   p?: string | number;
 }
       `,
+      options: [{ followExactOptionalPropertyTypes: true }],
       errors: [
         {
-          messageId: 'propertyError',
+          messageId: 'exactOptionalPropertyTypesError',
           line: 3,
           column: 3,
         },
@@ -265,9 +285,10 @@ interface I {
   p?: number | (() => void);
 }
       `,
+      options: [{ followExactOptionalPropertyTypes: true }],
       errors: [
         {
-          messageId: 'propertyError',
+          messageId: 'exactOptionalPropertyTypesError',
           line: 3,
           column: 3,
         },
@@ -284,9 +305,10 @@ interface I {
   p?: new () => {};
 }
       `,
+      options: [{ followExactOptionalPropertyTypes: true }],
       errors: [
         {
-          messageId: 'propertyError',
+          messageId: 'exactOptionalPropertyTypesError',
           line: 3,
           column: 3,
         },
@@ -303,9 +325,10 @@ interface I<T> {
   p?: T extends string ? string : number;
 }
       `,
+      options: [{ followExactOptionalPropertyTypes: true }],
       errors: [
         {
-          messageId: 'propertyError',
+          messageId: 'exactOptionalPropertyTypesError',
           line: 3,
           column: 3,
         },
@@ -322,9 +345,10 @@ class C {
   private p?: string;
 }
       `,
+      options: [{ followExactOptionalPropertyTypes: true }],
       errors: [
         {
-          messageId: 'propertyError',
+          messageId: 'exactOptionalPropertyTypesError',
           line: 3,
           column: 3,
         },
@@ -341,9 +365,10 @@ abstract class C {
   abstract p?: string;
 }
       `,
+      options: [{ followExactOptionalPropertyTypes: true }],
       errors: [
         {
-          messageId: 'propertyError',
+          messageId: 'exactOptionalPropertyTypesError',
           line: 3,
           column: 3,
         },
