@@ -282,6 +282,26 @@ interface I {
     {
       code: `
 interface I {
+  p?: number | (/* start */() => void/* end */);
+}
+      `,
+      options: [{ followExactOptionalPropertyTypes: true }],
+      errors: [
+        {
+          messageId: 'exactOptionalPropertyTypesError',
+          line: 3,
+          column: 3,
+        },
+      ],
+      output: `
+interface I {
+  p?: number | (/* start */() => void/* end */) | undefined;
+}
+      `,
+    },
+    {
+      code: `
+interface I {
   p?: number | (() => void);
 }
       `,

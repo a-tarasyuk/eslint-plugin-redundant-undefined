@@ -18,13 +18,36 @@ type MessageIds =
   | 'propertyOptionalError'
   | 'parameterOptionalError';
 
+function isOpeningParenToken(token: TSESTree.Token) {
+  return token.value === '(' && token.type === 'Punctuator';
+}
+
+function isClosingParenToken(token: TSESTree.Token) {
+  return token.value === ')' && token.type === 'Punctuator';
+}
+
+function isParenthesised(sourceCode: TSESLint.SourceCode, node: TSESTree.Node) {
+  const previousToken = sourceCode.getTokenBefore(node, {
+    filter: isOpeningParenToken,
+  });
+  const nextToken = sourceCode.getTokenAfter(node, {
+    filter: isClosingParenToken,
+  });
+
+  return (
+    !!previousToken &&
+    !!nextToken &&
+    previousToken.range[1] <= node.range[0] &&
+    nextToken.range[0] >= node.range[1]
+  );
+}
+
 export default createRule<Options, MessageIds>({
   name: 'redundant-undefined',
   meta: {
     docs: {
       description:
         'Forbids optional parameters to include an explicit `undefined` in their type and requires to use `undefined` in optional properties.',
-      category: 'Possible Errors',
       recommended: 'error',
     },
     fixable: 'code',
@@ -52,6 +75,8 @@ export default createRule<Options, MessageIds>({
     },
   ],
   create: function (context, [{ followExactOptionalPropertyTypes }]) {
+    const sourceCode = context.getSourceCode();
+
     function containsTypeNode(
       node: TSESTree.TypeNode,
       kind: AST_NODE_TYPES.TSUndefinedKeyword | AST_NODE_TYPES.TSAnyKeyword,
@@ -97,9 +122,9 @@ export default createRule<Options, MessageIds>({
 
     function isOptionalProperty(node: TSESTree.Node): boolean {
       switch (node.type) {
-        case AST_NODE_TYPES.TSAbstractClassProperty:
+        case AST_NODE_TYPES.TSAbstractPropertyDefinition:
         case AST_NODE_TYPES.TSPropertySignature:
-        case AST_NODE_TYPES.ClassProperty:
+        case AST_NODE_TYPES.PropertyDefinition:
           return !!node.optional;
         case AST_NODE_TYPES.TSUndefinedKeyword:
         case AST_NODE_TYPES.TSTypeAnnotation:
@@ -156,9 +181,9 @@ export default createRule<Options, MessageIds>({
 
     function checkProperty(
       node:
-        | TSESTree.TSAbstractClassProperty
+        | TSESTree.TSAbstractPropertyDefinition
         | TSESTree.TSPropertySignature
-        | TSESTree.ClassProperty,
+        | TSESTree.PropertyDefinition,
     ) {
       if (
         followExactOptionalPropertyTypes &&
@@ -186,9 +211,11 @@ export default createRule<Options, MessageIds>({
                 : typeNode;
 
             const needParens =
-              lastTypeNode.type === AST_NODE_TYPES.TSFunctionType ||
-              lastTypeNode.type === AST_NODE_TYPES.TSConstructorType ||
-              lastTypeNode.type === AST_NODE_TYPES.TSConditionalType;
+              (lastTypeNode.type === AST_NODE_TYPES.TSFunctionType ||
+                lastTypeNode.type === AST_NODE_TYPES.TSConstructorType ||
+                lastTypeNode.type === AST_NODE_TYPES.TSConditionalType) &&
+              !isParenthesised(sourceCode, lastTypeNode);
+
             const fixers = [];
             if (needParens) {
               fixers.push(fixer.insertTextBefore(lastTypeNode, '('));
@@ -202,9 +229,9 @@ export default createRule<Options, MessageIds>({
     }
 
     return {
-      TSAbstractClassProperty: checkProperty,
+      TSAbstractPropertyDefinition: checkProperty,
       TSPropertySignature: checkProperty,
-      ClassProperty: checkProperty,
+      PropertyDefinition: checkProperty,
       TSUndefinedKeyword: checkUndefined,
     };
   },
