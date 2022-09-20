@@ -3,7 +3,7 @@ import {
   ESLintUtils,
   TSESTree,
   TSESLint,
-} from '@typescript-eslint/experimental-utils';
+} from '@typescript-eslint/utils';
 
 const createRule = ESLintUtils.RuleCreator(() => '');
 

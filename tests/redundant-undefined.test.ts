@@ -1,4 +1,4 @@
-import { TSESLint } from '@typescript-eslint/experimental-utils';
+import { TSESLint } from '@typescript-eslint/utils';
 import rule from '../src/redundant-undefined';
 
 const ruleTester = new TSESLint.RuleTester({
