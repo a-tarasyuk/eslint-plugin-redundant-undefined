@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
-    "suppressImplicitAnyIndexErrors":  true,
     "allowSyntheticDefaultImports": false,
     "experimentalDecorators": true,
     "moduleResolution": "node",
