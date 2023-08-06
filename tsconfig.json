@@ -1,26 +1,30 @@
 {
   "compilerOptions": {
-    "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": false,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "declaration": false,
+    "declarationMap": false,
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["ES2021"],
+    "module": "Node16",
+    "moduleResolution": "node16",
+    "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noImplicitAny": true,
     "noResolve": false,
+    "noUnusedLocals": true,
+    "pretty": true,
     "skipLibCheck": true,
-    "declaration": false,
     "strict": true,
-    "module": "commonjs",
-    "target": "es5",
-    "outDir": "dist",
-    "lib": ["es2015"]
+    "target": "ES2021",
+    "rootDir": "."
   },
 
   "include": [
-    "src"
+    "src",
+    "tests"
   ],
 
   "exclude": [

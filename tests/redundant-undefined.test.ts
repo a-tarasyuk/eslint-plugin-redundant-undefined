@@ -1,11 +1,8 @@
-import { TSESLint } from '@typescript-eslint/utils';
+import { RuleTester } from '@typescript-eslint/rule-tester';
 import rule from '../src/redundant-undefined';
 
-const ruleTester = new TSESLint.RuleTester({
-  parserOptions: {
-    warnOnUnsupportedTypeScriptVersion: false,
-  },
-  parser: require.resolve('@typescript-eslint/parser'),
+const ruleTester = new RuleTester({
+  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('redundant-undefined', rule, {

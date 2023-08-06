@@ -19,7 +19,10 @@
   "bugs": {
     "url": "https://github.com/a-tarasyuk/eslint-plugin-redundant-undefined/issues"
   },
-  "main": "dist/index.js",
+  "type": "commonjs",
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "scripts": {
     "prepare": "npm run build",
     "format": "prettier --write \"./**/*.{ts,md}\"",
@@ -27,29 +30,30 @@
     "test:ci": "jest --coverage",
     "test": "jest",
     "lint": "eslint --config .eslintrc --ext .ts src tests",
-    "build": "tsc"
+    "build": "tsc -p tsconfig.build.json"
   },
   "devDependencies": {
-    "@types/eslint": "8.37.0",
-    "@types/node": "18.15.12",
-    "@typescript-eslint/eslint-plugin": "5.59.0",
-    "@typescript-eslint/parser": "5.59.0",
-    "eslint": "8.38.0",
+    "@types/eslint": "8.44.2",
+    "@types/node": "20.4.8",
+    "@typescript-eslint/eslint-plugin": "^6.2.1",
+    "@typescript-eslint/parser": "6.2.1",
+    "@typescript-eslint/rule-tester": "^6.2.1",
+    "eslint": "8.46.0",
     "husky": "8.0.3",
-    "jest": "29.5.0",
-    "prettier": "2.8.7",
-    "ts-jest": "29.1.0",
-    "typescript": "5.0.4"
+    "jest": "29.6.2",
+    "prettier": "3.0.1",
+    "ts-jest": "29.1.1",
+    "typescript": "5.1.6"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^5.59.0"
+    "@typescript-eslint/utils": "^6.2.1"
   },
   "peerDependencies": {
-    "@typescript-eslint/parser": "^5.38.0",
-    "eslint": "^8.2.0"
+    "@typescript-eslint/parser": "^6.2.0",
+    "eslint": "^8.46.0"
   },
   "engines": {
-    "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
+    "node": "^16.0.0 || >=18.0.0"
   },
   "husky": {
     "hooks": {

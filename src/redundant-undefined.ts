@@ -1,8 +1,8 @@
+import type { TSESTree, TSESLint } from '@typescript-eslint/utils';
 import {
   AST_NODE_TYPES,
+  AST_TOKEN_TYPES,
   ESLintUtils,
-  TSESTree,
-  TSESLint,
 } from '@typescript-eslint/utils';
 
 const createRule = ESLintUtils.RuleCreator(() => '');
@@ -19,11 +19,11 @@ type MessageIds =
   | 'parameterOptionalError';
 
 function isOpeningParenToken(token: TSESTree.Token) {
-  return token.value === '(' && token.type === 'Punctuator';
+  return token.value === '(' && token.type === AST_TOKEN_TYPES.Punctuator;
 }
 
 function isClosingParenToken(token: TSESTree.Token) {
-  return token.value === ')' && token.type === 'Punctuator';
+  return token.value === ')' && token.type === AST_TOKEN_TYPES.Punctuator;
 }
 
 function isParenthesised(sourceCode: TSESLint.SourceCode, node: TSESTree.Node) {
@@ -48,7 +48,7 @@ export default createRule<Options, MessageIds>({
     docs: {
       description:
         'Forbids optional parameters to include an explicit `undefined` in their type and requires to use `undefined` in optional properties.',
-      recommended: 'error',
+      recommended: 'strict',
     },
     fixable: 'code',
     messages: {
@@ -193,7 +193,7 @@ export default createRule<Options, MessageIds>({
           containsTypeNode(
             node.typeAnnotation.typeAnnotation,
             AST_NODE_TYPES.TSUndefinedKeyword,
-          ) ||
+          ) ??
           containsTypeNode(
             node.typeAnnotation.typeAnnotation,
             AST_NODE_TYPES.TSAnyKeyword,
